@@ -22,7 +22,7 @@ envelope.addEventListener('click', () => {
         }, 100);
 
         button.addEventListener('click', () => {
-            window.location.href = 'new.html';
+            window.location.href = '/Interactive-card-for-Valentine-s-Day/new.html';
         });
     }, 1700); 
 });
