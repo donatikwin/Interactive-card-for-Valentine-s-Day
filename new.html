@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/new.css">
+  <title>Animation</title>
+</head>
+<body>
+  <div class="text-container"></div>
+  <audio id="music" src="/music/2225074_eKZyJBsW.mp3" autoplay></audio>
+  <script>
+    const textLines = [
+      { text: 'люблю каждой взорванной ночью,', time: 0 },
+      { text: 'каждой недописанной песней.', time: 2200 },
+      { text: 'я тебя люблю беспредельно и прочно,', time: 4000 },
+      { text: 'а иначе мне не интересно.', time: 4100 },
+      { text: 'и на меньшее я не согласна.', time: 4000 },
+      { text: 'и самыми сильными ливнями', time: 3000 },
+      { text: 'я тебя люблю,', time: 1500 },
+      { text: 'и пусть это опасно,', time: 2000},
+      { text: 'только никогда не останови меня...', time: 3000 },
+    ];
+
+    const container = document.querySelector('.text-container');
+    const music = document.getElementById('music');
+    let currentLine = 0;
+
+    function showNextLine() {
+      if (currentLine < textLines.length) {
+        const line = document.createElement('p');
+        line.textContent = textLines[currentLine].text;
+        line.classList.add('text-line');
+        container.appendChild(line);
+
+        setTimeout(() => {
+          line.classList.add('active');
+        }, 100);
+
+        currentLine++;
+        setTimeout(showNextLine, textLines[currentLine - 1].time);
+
+        // Прокрутка контейнера с текстом
+        container.scrollTop = container.scrollHeight;
+      } else {
+        setTimeout(() => {
+          container.innerHTML = ''; 
+          currentLine = 0;
+          showNextLine(); 
+          music.currentTime = 0; 
+          music.play();
+        }, 5000);
+      }
+    }
+
+    window.addEventListener('load', () => {
+      document.querySelector('.text-container').style.opacity = 1;
+      showNextLine();
+    });
+  </script>
+</body>
+</html>
